@@ -89,3 +89,4 @@ const outputRange = Array.from({ length: 101 }, (_, i) => i/10); // [0, 1, 2, ..
 const result = system.evaluate(inputs, outputRange);
 
 console.log(`Fuzzy logic output: ${result}`);
+console.log('ruan fikri');
