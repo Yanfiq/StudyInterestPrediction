@@ -135,10 +135,6 @@ form?.addEventListener('submit', function (event) {
             } else if (radioButton.value === 'no') {
                 passion_no++;
             }
-        } else {
-            // Handle case where a question is not answered
-            console.log('Question ' + (i + 1) + ' is not answered.');
-            // Optionally, you can break the loop or handle this case as needed
         }
     }
 

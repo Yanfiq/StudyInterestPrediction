@@ -132,11 +132,6 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
                 passion_no++;
             }
         }
-        else {
-            // Handle case where a question is not answered
-            console.log('Question ' + (i + 1) + ' is not answered.');
-            // Optionally, you can break the loop or handle this case as needed
-        }
     }
     const inputs = [depression_yes, anxiety_score, taskCount, passion_yes];
     const outputRange = Array.from({ length: 101 }, (_, i) => i / 10);
