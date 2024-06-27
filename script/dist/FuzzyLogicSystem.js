@@ -8,13 +8,12 @@ export class FuzzyLogicSystem {
     evaluate(inputs, outputRange) {
         let numerator = 0;
         let denominator = 0;
-        const deltaX = outputRange[1] - outputRange[0]; // Assuming uniform discretization
+        const deltaX = outputRange[1] - outputRange[0];
         for (let i = 0; i < outputRange.length - 1; i++) {
             let x1 = outputRange[i];
             let x2 = outputRange[i + 1];
             let y1 = this.getMaxDegree(inputs, x1);
             let y2 = this.getMaxDegree(inputs, x2);
-            // Trapezoidal Rule
             numerator += (y1 * x1 + y2 * x2) * deltaX / 2;
             denominator += (y1 + y2) * deltaX / 2;
         }
