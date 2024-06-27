@@ -47,14 +47,35 @@ const rules = [
     //28, 29
     new FuzzyRule([depression.getMedDegree.bind(depression), anxiety.getMedDegree.bind(anxiety), tasks.getMedDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMaxDegree.bind(output)),
     //30
+    new FuzzyRule([depression.getMedDegree.bind(depression), anxiety.getMedDegree.bind(anxiety), tasks.getMinDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMaxDegree.bind(output)),
+    //31
+    new FuzzyRule([depression.getMedDegree.bind(depression), anxiety.getMedDegree.bind(anxiety), tasks.getMaxDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMaxDegree.bind(output)),
+    //32
+    new FuzzyRule([depression.getMedDegree.bind(depression), anxiety.getMedDegree.bind(anxiety), tasks.getMaxDegree.bind(tasks), passion.getMedDegree.bind(passion)], output.getMedDegree.bind(output)),
+    //33
+    new FuzzyRule([depression.getMedDegree.bind(depression), anxiety.getMaxDegree.bind(anxiety), tasks.getMedDegree.bind(tasks), passion.getMedDegree.bind(passion)], output.getMedDegree.bind(output)),
+    //34
+    new FuzzyRule([depression.getMedDegree.bind(depression), anxiety.getMaxDegree.bind(anxiety), tasks.getMedDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMedDegree.bind(output)),
+    //35
+    new FuzzyRule([depression.getMedDegree.bind(depression), anxiety.getMaxDegree.bind(anxiety), tasks.getMaxDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMedDegree.bind(output)),
     //36, 37
     new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMinDegree.bind(anxiety), tasks.getMedDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMaxDegree.bind(output)),
     //38, 39
-    new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMinDegree.bind(anxiety), tasks.getMaxDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMaxDegree.bind(output)),
+    new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMinDegree.bind(anxiety), tasks.getMaxDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMinDegree.bind(output)),
+    //40
+    new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMedDegree.bind(anxiety), tasks.getMinDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMedDegree.bind(output)),
     //41, 42
     new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMedDegree.bind(anxiety), tasks.getMedDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMinDegree.bind(output)),
+    //43
+    new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMedDegree.bind(anxiety), tasks.getMaxDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMaxDegree.bind(output)),
+    //44
+    new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMaxDegree.bind(anxiety), tasks.getMaxDegree.bind(tasks), passion.getMedDegree.bind(passion)], output.getMedDegree.bind(output)),
+    //45
+    new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMaxDegree.bind(anxiety), tasks.getMinDegree.bind(tasks), passion.getMedDegree.bind(passion)], output.getMedDegree.bind(output)),
     //46, 47, 48
     new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMaxDegree.bind(anxiety), tasks.getMaxDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMedDegree.bind(output)),
+    //49
+    new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMaxDegree.bind(anxiety), tasks.getMedDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMinDegree.bind(output)),
     //50, 51
     new FuzzyRule([depression.getMaxDegree.bind(depression), anxiety.getMaxDegree.bind(anxiety), tasks.getMinDegree.bind(tasks), passion.getMaxDegree.bind(passion)], output.getMedDegree.bind(output)),
 ];
@@ -63,8 +84,8 @@ const system = new FuzzyLogicSystem();
 rules.forEach(rule => system.addRule(rule));
 
 // Evaluate system with inputs
-const inputs = [5.5, 21, 7, 1];
-const outputRange = Array.from({ length: 11 }, (_, i) => i); // [0, 1, 2, ..., 10]
+const inputs = [3, 17, 3, 6];
+const outputRange = Array.from({ length: 101 }, (_, i) => i/10); // [0, 1, 2, ..., 10]
 const result = system.evaluate(inputs, outputRange);
 
 console.log(`Fuzzy logic output: ${result}`);
