@@ -6,7 +6,7 @@ import { FuzzyRule } from "./FuzzyRule.js";
 const depression = new Fuzzy(4, 5.5, 7);
 const anxiety = new Fuzzy(17, 21, 25);
 const tasks = new Fuzzy(3, 5, 7);
-const passion = new Fuzzy(3, 5, 7);
+const passion = new Fuzzy(4, 5, 7);
 
 const output = new Fuzzy(0, 5, 10);
 
@@ -85,14 +85,14 @@ rules.forEach(rule => system.addRule(rule));
 
 // Evaluate system with inputs
 let form = document.querySelector('#questions');
-form?.addEventListener('submit', function(event){
+form?.addEventListener('submit', function (event) {
     event.preventDefault();
     let depressionSection: HTMLElement = document.getElementById("depression") as HTMLElement;
     let depressionQuestions = depressionSection.getElementsByClassName('question');
     let depression_yes = 0; let depression_no = 0;
     for (let i = 0; i < depressionQuestions.length; i++) {
         let radioButton = depressionQuestions[i].querySelector('input[name="choice_depression_' + (i + 1) + '"]:checked') as HTMLInputElement;
-        
+
         if (radioButton) {
             if (radioButton.value === 'yes') {
                 depression_yes++;
@@ -111,7 +111,7 @@ form?.addEventListener('submit', function(event){
     let anxiety_score = 0;
     for (let i = 0; i < anxietyQuestions.length; i++) {
         let radioButton = anxietyQuestions[i].querySelector('input[name="choice_anxiety_' + (i + 1) + '"]:checked') as HTMLInputElement;
-        
+
         if (radioButton) {
             anxiety_score += parseInt(radioButton.value);
         } else {
@@ -128,7 +128,7 @@ form?.addEventListener('submit', function(event){
     let passion_yes = 0; let passion_no = 0;
     for (let i = 0; i < passionQuestions.length; i++) {
         let radioButton = passionQuestions[i].querySelector('input[name="choice_passion_' + (i + 1) + '"]:checked') as HTMLInputElement;
-        
+
         if (radioButton) {
             if (radioButton.value === 'yes') {
                 passion_yes++;
@@ -143,11 +143,44 @@ form?.addEventListener('submit', function(event){
     }
 
     const inputs = [depression_yes, anxiety_score, taskCount, passion_yes];
-    const outputRange = Array.from({ length: 101 }, (_, i) => i/10);
+    const outputRange = Array.from({ length: 101 }, (_, i) => i / 10);
     const result = system.evaluate(inputs, outputRange);
 
     let resultString = result !== undefined ? result.toString() : '';
     document.getElementById('result')!.innerText = resultString;
-
-    console.log(`Fuzzy logic output: ${result}`);
+    console.log(`Depression score: ${depression_yes}; Anxiety score: ${anxiety_score}; passion score: ${passion_yes}; tasks count: ${taskCount}`)
 })
+
+let currentSection = 0;
+let sections: HTMLCollectionOf<HTMLElement> = document.getElementsByTagName('section');
+for(let i = 1; i<sections.length; i++){
+    sections[i].classList.add('hidden-abs');
+}
+let nextSection = <HTMLButtonElement>document.querySelector('#next-section');
+let prevSection = <HTMLButtonElement>document.querySelector('#prev-section');
+prevSection.classList.add('hidden-abs');
+document.querySelector('#submit-button')?.classList.add('hidden-abs');
+nextSection.addEventListener('click', function (event) {
+    event.preventDefault();
+    if(currentSection == 0){
+        prevSection.classList.remove('hidden-abs');
+    }
+    sections[currentSection++].classList.add('hidden-abs');
+    sections[currentSection].classList.remove('hidden-abs');
+    if(currentSection == sections.length-1){
+        nextSection.classList.add('hidden-abs');
+        document.querySelector('#submit-button')?.classList.remove('hidden-abs');
+    }
+});
+prevSection.addEventListener('click', function (event) {
+    event.preventDefault();
+    if(currentSection == sections.length-1){
+        nextSection.classList.remove('hidden-abs');
+        document.querySelector('#submit-button')?.classList.add('hidden-abs');
+    }
+    sections[currentSection--].classList.add('hidden-abs');
+    sections[currentSection].classList.remove('hidden-abs');
+    if(currentSection == 0){
+        prevSection.classList.add('hidden-abs');
+    }
+});

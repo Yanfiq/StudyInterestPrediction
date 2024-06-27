@@ -89,7 +89,6 @@
                     <input type="radio" name="choice_depression_10" value="no">
                     <label for="no">No</label>
                 </div>
-                <button id="next-section">Next section</button>
             </section>
             <section id="anxiety">
                 <div class="question">
@@ -342,11 +341,13 @@
                     <label for="no">No</label>
                 </div>
             </section>
-            <div id="tasks">
+            <section id="tasks">
                 <p>Berapa rata-rata jumlah tugas kuliah dan kegiatan diluar perkuliahan?</p>
                 <input type="number" name="task_count" id="task_count">
-            </div>
-            <input type="submit" value="Submit">
+            </section>
+            <button id="prev-section">Prev section</button>
+            <button id="next-section">Next section</button>
+            <input type="submit" id="submit-button" value="Submit">
         </form>
         <div id="result"></div>
         <script type="module" src="script/dist/index.js"></script>

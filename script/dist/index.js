@@ -1,3 +1,4 @@
+var _a;
 import { Fuzzy } from "./Fuzzy.js";
 import { FuzzyLogicSystem } from "./FuzzyLogicSystem.js";
 import { FuzzyRule } from "./FuzzyRule.js";
@@ -142,10 +143,40 @@ form === null || form === void 0 ? void 0 : form.addEventListener('submit', func
     const result = system.evaluate(inputs, outputRange);
     let resultString = result !== undefined ? result.toString() : '';
     document.getElementById('result').innerText = resultString;
+    console.log(`Depression score: ${depression_yes}; Anxiety score: ${anxiety_score}; passion score: ${passion_yes}; tasks count: ${taskCount}`);
 });
 let currentSection = 0;
 let sections = document.getElementsByTagName('section');
-sections.item;
+for (let i = 1; i < sections.length; i++) {
+    sections[i].classList.add('hidden-abs');
+}
 let nextSection = document.querySelector('#next-section');
+let prevSection = document.querySelector('#prev-section');
+prevSection.classList.add('hidden-abs');
+(_a = document.querySelector('#submit-button')) === null || _a === void 0 ? void 0 : _a.classList.add('hidden-abs');
 nextSection.addEventListener('click', function (event) {
+    var _a;
+    event.preventDefault();
+    if (currentSection == 0) {
+        prevSection.classList.remove('hidden-abs');
+    }
+    sections[currentSection++].classList.add('hidden-abs');
+    sections[currentSection].classList.remove('hidden-abs');
+    if (currentSection == sections.length - 1) {
+        nextSection.classList.add('hidden-abs');
+        (_a = document.querySelector('#submit-button')) === null || _a === void 0 ? void 0 : _a.classList.remove('hidden-abs');
+    }
+});
+prevSection.addEventListener('click', function (event) {
+    var _a;
+    event.preventDefault();
+    if (currentSection == sections.length - 1) {
+        nextSection.classList.remove('hidden-abs');
+        (_a = document.querySelector('#submit-button')) === null || _a === void 0 ? void 0 : _a.classList.add('hidden-abs');
+    }
+    sections[currentSection--].classList.add('hidden-abs');
+    sections[currentSection].classList.remove('hidden-abs');
+    if (currentSection == 0) {
+        prevSection.classList.add('hidden-abs');
+    }
 });
