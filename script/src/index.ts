@@ -84,8 +84,70 @@ const system = new FuzzyLogicSystem();
 rules.forEach(rule => system.addRule(rule));
 
 // Evaluate system with inputs
-const inputs = [3, 17, 3, 6];
-const outputRange = Array.from({ length: 101 }, (_, i) => i/10); // [0, 1, 2, ..., 10]
-const result = system.evaluate(inputs, outputRange);
+let form = document.querySelector('#questions');
+form?.addEventListener('submit', function(event){
+    event.preventDefault();
+    let depressionSection: HTMLElement = document.getElementById("depression") as HTMLElement;
+    let depressionQuestions = depressionSection.getElementsByClassName('question');
+    let depression_yes = 0; let depression_no = 0;
+    for (let i = 0; i < depressionQuestions.length; i++) {
+        let radioButton = depressionQuestions[i].querySelector('input[name="choice_depression_' + (i + 1) + '"]:checked') as HTMLInputElement;
+        
+        if (radioButton) {
+            if (radioButton.value === 'yes') {
+                depression_yes++;
+            } else if (radioButton.value === 'no') {
+                depression_no++;
+            }
+        } else {
+            // Handle case where a question is not answered
+            console.log('Question ' + (i + 1) + ' is not answered.');
+            // Optionally, you can break the loop or handle this case as needed
+        }
+    }
 
-console.log(`Fuzzy logic output: ${result}`);
+    let anxietySection: HTMLElement = document.getElementById("anxiety") as HTMLElement;
+    let anxietyQuestions = anxietySection.getElementsByClassName('question');
+    let anxiety_score = 0;
+    for (let i = 0; i < anxietyQuestions.length; i++) {
+        let radioButton = anxietyQuestions[i].querySelector('input[name="choice_anxiety_' + (i + 1) + '"]:checked') as HTMLInputElement;
+        
+        if (radioButton) {
+            anxiety_score += parseInt(radioButton.value);
+        } else {
+            // Handle case where a question is not answered
+            console.log('Question ' + (i + 1) + ' is not answered.');
+            // Optionally, you can break the loop or handle this case as needed
+        }
+    }
+
+    let taskCount = parseInt((<HTMLInputElement>document.getElementById('task_count')).value);
+
+    let passionSection: HTMLElement = document.getElementById("passion") as HTMLElement;
+    let passionQuestions = passionSection.getElementsByClassName('question');
+    let passion_yes = 0; let passion_no = 0;
+    for (let i = 0; i < passionQuestions.length; i++) {
+        let radioButton = passionQuestions[i].querySelector('input[name="choice_passion_' + (i + 1) + '"]:checked') as HTMLInputElement;
+        
+        if (radioButton) {
+            if (radioButton.value === 'yes') {
+                passion_yes++;
+            } else if (radioButton.value === 'no') {
+                passion_no++;
+            }
+        } else {
+            // Handle case where a question is not answered
+            console.log('Question ' + (i + 1) + ' is not answered.');
+            // Optionally, you can break the loop or handle this case as needed
+        }
+    }
+
+    const inputs = [depression_yes, anxiety_score, taskCount, passion_yes];
+    const outputRange = Array.from({ length: 101 }, (_, i) => i/10);
+    const result = system.evaluate(inputs, outputRange);
+
+    let resultString = result !== undefined ? result.toString() : '';
+    document.getElementById('result')!.innerText = resultString;
+
+    console.log(`Fuzzy logic output: ${result}`);
+})
