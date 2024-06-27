@@ -5,11 +5,11 @@ export class Fuzzy {
         this.max = max;
     }
     getMinDegree(x) {
-        if (x >= this.max) {
+        if (x >= this.med) {
             return 0;
         }
-        else if (x > this.min && x < this.max) {
-            return ((this.max - x) / (this.max - this.min));
+        else if (x > this.min && x < this.med) {
+            return ((this.med - x) / (this.med - this.min));
         }
         else {
             return 1;
@@ -19,7 +19,7 @@ export class Fuzzy {
         if (x >= this.max || x <= this.min) {
             return 0;
         }
-        else if (x > this.min && x < this.max) {
+        else if (x > this.min && x < this.med) {
             return ((x - this.min) / (this.med - this.min));
         }
         else {
@@ -30,7 +30,7 @@ export class Fuzzy {
         if (x <= this.med) {
             return 0;
         }
-        else if (x > this.min && x < this.max) {
+        else if (x > this.med && x < this.max) {
             return ((x - this.med) / (this.max - this.med));
         }
         else {
