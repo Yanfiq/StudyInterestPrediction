@@ -95,13 +95,16 @@ form?.addEventListener('submit', function (event) {
     let result_list = document.createElement('ul');
 
     let depression_element = document.createElement('li');
-    depression_element.innerText = `Depression = ${((depression_yes/10)*100).toString()} %`;
+    depression_element.innerText = `Depression = ${depression_yes <=4 ? "Mild" : depression_yes <= 7 ? "Moderate" : "Severe"}`;
     
     let anxiety_element = document.createElement('li');
-    anxiety_element.innerText = `Anxiety = ${((anxiety_score/56)*100).toString()}%`;
+    anxiety_element.innerText = `Anxiety = ${anxiety_score < 17 ? "Mild" : anxiety_score < 24 ? "Moderate" : "Severe"}`;
     
     let passion_element = document.createElement('li');
-    passion_element.innerText = `Passion Score = ${((passion_yes/10)*100).toString()}%`;
+    passion_element.innerText = `Passion score = ${passion_yes < 3 ? "Min" : passion_yes < 5 ? "Med" : "Max"}`;
+
+    let tasks_element = document.createElement('li');
+    tasks_element.innerText = `Tasks count = ${taskCount < 3 ? "Min" : taskCount < 5 ? "Med" : "Max"}`;
     
     let studyInterest_element = document.createElement('li');
     studyInterest_element.innerText = `Study Interest Score = ${((result/10)*100).toString()}%`;
@@ -109,6 +112,7 @@ form?.addEventListener('submit', function (event) {
     result_list.appendChild(depression_element);
     result_list.appendChild(anxiety_element);
     result_list.appendChild(passion_element);
+    result_list.appendChild(tasks_element);
     result_list.appendChild(studyInterest_element);    
 
     (<HTMLElement>document.getElementById('result')).innerHTML = '';
